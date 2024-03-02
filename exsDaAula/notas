@@ -1,0 +1,13 @@
+
+/*Aula Teórica 20/02/2024*/
+
+int y [10]; /* é um array de 10 numeros inteiros */
+y[0] = 43; /* na primeira posição do array y temos o inteiro 43*/
+y[1] = 2 * y[0]; /*a segunda posição do array vai ser o resultado da multiplicação do primeira posição com 2*/
+
+/*função sizeof(x) é uma função que nos diz quanto ocupa um x*/
+
+
+// Podemos somar endereços
+y[0] <=> *y;
+y[4] <=> *(y + 4);

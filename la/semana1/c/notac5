@@ -1,0 +1,15 @@
+O programa começa incluindo as bibliotecas stdio.h e math.h, que fornecem funções para entrada/saída e operações matemáticas,
+respectivamente.
+
+A função calculo é a principal função que realiza os cálculos. Ela recebe três argumentos: numBitsExpoente, numBitsMantissa e cadeiaStr. 
+Aqui está o que ela faz:
+
+ - Calcula o valor de excesso usando a fórmula pow(2, numBitsExpoente) / 2 - 1. O excesso é usado para ajustar o expoente na representação
+de ponto flutuante.
+ - Calcula o valor de frac e expoente com base na string cadeiaStr. A string cadeiaStr é uma representação binária do número, onde
+o primeiro bit é o sinal, os próximos numBitsExpoente bits são o expoente e os restantes numBitsMantissa bits são a mantissa.
+ - Com base nos valores de expoente e frac, calcula o valor de num e imprime o resultado. O cálculo é feito de acordo com as regras
+da representação de ponto flutuante.
+
+A função main lê o número de testes n e, em seguida, para cada teste, lê numBitsExpoente, numBitsMantissa e cadeiaStr, e chama a função
+calculo para realizar o cálculo.

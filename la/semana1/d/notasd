@@ -1,0 +1,15 @@
+Inclusões e definições: O programa inclui várias bibliotecas padrão do C e define o número de letras no alfabeto inglês.
+
+Frequências esperadas: O programa define um array de frequências esperadas para cada letra em inglês. Isso é usado mais tarde 
+para determinar o melhor deslocamento para decifrar a mensagem.
+
+Função decifrar_cesar: Esta função recebe uma string cifrada, um deslocamento e uma string vazia. Ela decifra a string 
+cifrada usando o deslocamento fornecido e armazena o resultado na string vazia.
+
+Função calcular_soma_das_diferencas_quadradas: Esta função calcula a soma dos quadrados das diferenças entre as frequências
+observadas e esperadas das letras na string decifrada. Isso é usado para determinar o melhor deslocamento para decifrar a mensagem.
+
+Função main: Esta é a função principal do programa. Ela lê a string cifrada da entrada padrão, então usa um loop para 
+chamar a função decifrar_cesar com cada possível deslocamento. Para cada deslocamento, ela calcula a soma dos quadrados
+ das diferenças usando a função calcular_soma_das_diferencas_quadradas e mantém o deslocamento que resulta na menor soma. 
+ Finalmente, ela decifra a mensagem usando o melhor deslocamento e imprime a mensagem decifrada.

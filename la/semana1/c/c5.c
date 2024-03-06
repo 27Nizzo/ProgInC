@@ -7,19 +7,22 @@
 - Com base nos valores de expoente e frac, calcula o valor de num e imprime o resultado.
 */
 void calculo(int numBitsExpoente, int numBitsMantissa, char* cadeiaStr) {
+    // claculo do execesso do expoente 
     int excesso = pow(2, numBitsExpoente) / 2 - 1;
     double frac = 0, num = 0;
     int expoente = 0;
 
+    // Calcula a parte fracionária:
     for (int j = numBitsExpoente+numBitsMantissa; j >= numBitsExpoente+1; j--){
         if (cadeiaStr[j] == '1') frac += pow(2,numBitsExpoente-j);
     }
-
+    // calcula o expoente 
     for (int k = numBitsExpoente; k > 0; k--){
         if (cadeiaStr[k] == '1') expoente += pow(2,numBitsExpoente-k);
     }
      expoente = expoente - excesso;
 
+// Verifica casos especiais: 
     if (expoente == -excesso) {
         expoente += 1;
         if (frac == 0) {
@@ -56,6 +59,7 @@ int main() {
             int numBitsMantissa = 0;
             int numBitsExpoente = 0;
             char cadeiaStr[15];
+            
             if (scanf("%d %d %s", &numBitsExpoente, &numBitsMantissa, cadeiaStr) == 3){
                 if ((numBitsExpoente >= 1 && numBitsExpoente <= 5) && (numBitsMantissa >= 1 && numBitsMantissa <= 7)) {
                     calculo(numBitsExpoente, numBitsMantissa, cadeiaStr);

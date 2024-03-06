@@ -1,76 +1,114 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <math.h>
-#include <stdlib.h>
+#include <string.h>
 
 #define NUM_LETTERS 26
 
 // Frequências esperadas para cada letra em inglês
-double expected_frequencies[NUM_LETTERS] = {8.4966, 2.0720, 4.5388, 3.3844, 11.1607, 1.8121, 2.4705, 3.0034, 7.5448, 0.1965, 1.1016, 5.4893, 3.0129, 6.6544, 7.1635, 3.1671, 0.1962, 7.5809, 5.7351, 6.9509, 3.6308, 1.0074, 1.2899, 0.2902, 1.7779, 0.2722};
+double expected_frequencies[NUM_LETTERS] = {         8.4966, 2.0720, 4.5388, 3.3844, 
+                                                     11.1607, 1.8121, 2.4705, 3.0034, 
+/*A - Z*/                                            7.5448, 0.1965, 1.1016, 5.4893, 
+                                                     3.0129, 6.6544, 7.1635, 3.1671, 
+                                                     0.1962, 7.5809, 5.7351, 6.9509, 
+                                                     3.6308, 1.0074, 1.2899, 0.2902, 
+                                                     1.7779, 0.2722                     };
 
-void decifrar_cesar(char* texto_cifrado, int deslocamento, char* texto_plano) {
-    int i = 0;
-    while (texto_cifrado[i] != '\0') {
-        char caractere_atual = texto_cifrado[i];
-        if (isalpha(caractere_atual)) {
-            int deslocamento_ajustado = (caractere_atual - (islower(caractere_atual) ? 'a' : 'A') - deslocamento + 26) % 26;
-            texto_plano[i] = deslocamento_ajustado + (islower(caractere_atual) ? 'a' : 'A');
+
+void decifrar_cesar(char* textoCifrado, int deslocamento, char* texto) {
+
+    for (int i = 0; textoCifrado[i] != '\0'; i++) {
+  // este loop vai iterar sobre cada caractere no texto cifrado até o final da string
+      
+        char char_atual = textoCifrado[i];
+        // Obtem o char atual no texto cifrado
+
+        // Este if verifica se o char é uma letra do alfabeto
+        if (isalpha(char_atual)) {
+            char ascii_offset;
+            // Este if define o offset ASCII com base em se o caracter é inusculo ou maiúsculo 
+            if (islower(char_atual)) {
+                ascii_offset = 'a';
+            } else {
+                ascii_offset = 'A';
+            }
+            // decifra o char usando a citra de césar com o deslocamento fornecido
+            char charDecriptado = ((char_atual - ascii_offset - deslocamento + NUM_LETTERS) % NUM_LETTERS) + ascii_offset;
+            // armaneza o char decriptado no array 'texto'
+            texto[i] = charDecriptado;
         } else {
-            texto_plano[i] = caractere_atual;
+          // Se o char não for uma letra, mantém o mesmo char no array 'texto'
+            texto[i] = char_atual;
         }
-        i++;
     }
-    texto_plano[strlen(texto_cifrado)] = '\0';
+    
+    texto[strlen(textoCifrado)] = '\0';  // termina a string
 }
 
 double calcular_soma_das_diferencas_quadradas(char* texto) {
-  // Cria um dicionário para armazenar as frequências das letras
-  int letter_counts[NUM_LETTERS] = {0};
-  int total_letters = 0;
-  for (int i = 0; texto[i] != '\0'; i++) {
-    char char_atual = texto[i];
-    if (isalpha(char_atual)) {
-      letter_counts[tolower(char_atual) - 'a']++;
-      total_letters++;
+  // Inicializa um array para armanezar a contagem de cada letra do alfabeto 
+    int contagem_de_letras[NUM_LETTERS] = {0};
+  
+  // Inici a variável para armanezar o total de letras no texto
+    int letrasTotal = 0;
+
+    // Conta a frequência de cada letra no texto
+    char* p = texto;
+    while (*p != '\0') {
+      // Este if verifica se o char é uma letra do alfabeto 
+        if (isalpha(*p)) {
+          // Converte o char para minusculo e incrementa na contagem
+            char char_atual = tolower(*p);
+            contagem_de_letras[char_atual - 'a']++;
+            letrasTotal++;
+        }
+        // o pointer muda para o proximo char
+        p++;
     }
-  }
+    
+    // Calcula a soma dos quadrados das diferenças
+    double soma_das_diferencas_quadradas = 0.0;
+    
+    for (int i = 0; i < NUM_LETTERS; i++) {
+        double observed_frequency = (double)contagem_de_letras[i] / letrasTotal * 100;
+        double diff = expected_frequencies[i] - observed_frequency;
+        soma_das_diferencas_quadradas += diff * diff / expected_frequencies[i];
+    }
 
-  // Calcula a soma das diferenças quadradas
-  double soma_das_diferencas_quadradas = 0.0;
-  for (int i = 0; i < NUM_LETTERS; i++) {
-    double observed_frequency = (double)letter_counts[i] / total_letters * 100;
-    double difference = expected_frequencies[i] - observed_frequency;
-    soma_das_diferencas_quadradas += difference * difference / expected_frequencies[i];
-  }
-
-  return soma_das_diferencas_quadradas;
+    return soma_das_diferencas_quadradas;
 }
 
 int main() {
-  char ciphertext[10000];
-  fgets(ciphertext, 10000, stdin);
-  if (ciphertext[strlen(ciphertext) - 1] == '\n') {
-    ciphertext[strlen(ciphertext) - 1] = '\0';
-  }
+    char textoCifrado[10000];
 
-  char plaintext[10000];
-  double min_soma_das_diferencas_quadradas = INFINITY;
-  int melhor_deslocamento = 0;
 
-  // Encontra o melhor deslocamento
-  for (int deslocamento = 0; deslocamento < NUM_LETTERS; deslocamento++) {
-    decifrar_cesar(ciphertext, deslocamento,plaintext);
-    double soma_diferencas = calcular_soma_das_diferencas_quadradas(plaintext);
-
-    if (soma_diferencas < min_soma_das_diferencas_quadradas) {
-      min_soma_das_diferencas_quadradas = soma_diferencas;
-      melhor_deslocamento = deslocamento;
+   if (fgets(textoCifrado, 10000, stdin) == NULL) {
+        return 1;
     }
-  }
 
-  // Imprime o resultado
-  decifrar_cesar(ciphertext, melhor_deslocamento, plaintext);
-  printf("Melhor deslocamento: %d\nTexto decifrado: %s\n", melhor_deslocamento, plaintext);
+    if (textoCifrado[strlen(textoCifrado) - 1] == '\n') {
+    textoCifrado[strlen(textoCifrado) - 1] = '\0';
+    }
 
-  return 0;
+
+
+    char texto[10000];
+    double min_soma_das_diferencas_quadradas = INFINITY;
+    int bestDeslocamento = 0;
+
+    for (int deslocamento = 0; deslocamento < NUM_LETTERS; deslocamento++) {
+        decifrar_cesar(textoCifrado, deslocamento, texto);
+        double soma_das_diferencas_quadradas = calcular_soma_das_diferencas_quadradas(texto);
+        if (soma_das_diferencas_quadradas < min_soma_das_diferencas_quadradas) {
+            min_soma_das_diferencas_quadradas = soma_das_diferencas_quadradas;
+            bestDeslocamento = deslocamento;
+        }
+    }
+
+    int mDesloca = (NUM_LETTERS - bestDeslocamento) % NUM_LETTERS;
+    decifrar_cesar(textoCifrado, bestDeslocamento, texto);
+    printf("%d %s\n", mDesloca, texto);
+
+    return 0;
 }
+

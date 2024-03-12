@@ -43,13 +43,68 @@ float ex2() {
     printf("%f", media);
     return media;
 }
-
+/*3) Defina um programa que lˆe (usando a fun¸c˜ao scanf uma sequˆencia de n´umeros inteiros ter-
+minada com o n´umero 0 e imprime no ecran o segundo maior elemento.*/
 int ex3() {
 
-        
+    int maior, segundoMaior, num;
+    scanf("%d", &num);
+    maior = num; 
+    if(num > maior) {
+        segundoMaior = maior;
+        maior = num; 
+    } else {
+        segundoMaior = num;
+    }
 
-    return 0;
+    while (num != 0)
+    {
+        scanf("%d", &num);
+        if(num != 0 && num > segundoMaior) {
+            if(num > maior) {
+                segundoMaior = maior;
+                maior = num;
+            } else {
+                segundoMaior = num;
+            }
+        }
+    }
+
+        printf("%d\n", segundoMaior);
+        return segundoMaior;
 }
+
+/*4) Defina uma fun¸c˜ao int bitsUm (unsigned int n) que calcula o n´umero de bits iguais a 1
+usados na representa¸c˜ao bin´aria de um dado n´umero n.*/
+
+int bistUm(unsigned int n) {
+    int uns = 0;
+
+    for(int i = 0; i < n; i++) {
+        if(i % 2 == 0) {
+            uns++;
+        }
+    }
+    return uns;
+}
+
+/*5) Defina uma fun¸c˜ao int trailingZ (unsigned int n) que calcula o n´umero de bits a 0 no
+final da representa¸c˜ao bin´aria de um n´umero*/
+
+int trailingZ(unsigned int n) {
+    int zeros = 0;
+
+    for(int i = n; i > 0; i /= 2) {
+        if(i % 2 == 0) {
+            zeros++;
+        }
+    }
+
+    return zeros; 
+}
+
+
+
 
 int main() {
 
@@ -67,6 +122,18 @@ int main() {
     case 2: 
         ex2();
         break; 
+
+    case 3:
+        ex3();
+        break;
+    
+    case 4:
+        bistUm(5);
+        break;
+    
+    case 5:
+        trailingZ(5);
+        break;
 
     default:
         break;

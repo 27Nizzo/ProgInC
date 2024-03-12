@@ -5,6 +5,6 @@ int main() {
 // d -> dá delete ao numero se existir na hash table e printa "OK", caso contrário printa "NO"
     int i, d, c;
 
-
+printf("Insira o tamanho da hash table: ");
     return 0;
 }

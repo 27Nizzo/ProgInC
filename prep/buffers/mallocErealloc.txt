@@ -1,0 +1,16 @@
+
+A função malloc() reserva/aloca um dado número de bytes na heap
+-> Devolve um apontador para o primeiro byte alocado
+-> Os bytes alocados são contíguos;
+-> Devolve um apontador NULL se não foi possível alocar;
+-> Deve ser usada a primitiva 'sizeof' para calcular o número de bytes a alocar
+A função free() liberta espaço que foi alocado anteriormente
+
+
+
+A função realloc() permite alterar o tamanho do espaço alocado. 
+-> Recebe um apontador para o espaço atual e o novo tamanho desejado;
+-> Tenta alocar primeiramente o espaço adicional depois do espaço atual;
+-> Se não for possível aloca numa nova zona da heap, transfere o contéudo e liberta o espaço anterior;
+-> Se também não for possível devolve NULL;
+-> Neste caso não liberta espaço anterior;

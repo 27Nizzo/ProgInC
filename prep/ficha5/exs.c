@@ -13,6 +13,12 @@ typedef struct aluno
     float teste;
 } Aluno;
 
+/*Funções a utilizar:
+-> strcpy(): copia a string dada de uma locazição para outra
+-> strcmp(): compara o valor de duas strings e retorna um 
+valor que indica a relação entre as mesmas
+*/
+
 //Ex1:
 int nota(Aluno a){
     int total = 0;

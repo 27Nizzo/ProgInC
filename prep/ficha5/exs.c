@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include<string.h>
 
 #define MAXCHARPARANOME 100
 #define TOTALDEMINITESTES 6
@@ -58,7 +59,7 @@ void ordenaPorNum(Aluno t[], int N){
 //Ex4:
 
 void criaIndPorNum(Aluno t[], int N, int ind[]){
-    int ind[N];
+  //  int ind[N];
 
     for(int i = 0; i < N; i++){
         ind[i] = i;
@@ -83,6 +84,35 @@ void imprimeTurma(int ind[], Aluno t[], int N){
             printf("%d %s\n", t[i].numero, t[i].nome);
         } 
     }
+
+//Ex6:
+
+int procuraNumInd(int num, int ind[], Aluno t[], int N){
+    for(int i = 0; i < N; i++){
+        if(i < N && t[i].numero == num){
+            return ind[i];
+        }
+        else {
+            return -1;
+        }
+    }
+}
+
+//Ex7:
+
+void criaIndPorNome(Aluno t[], int N, int ind[]){
+    for(int i = 0; i < N; i++){
+        ind[i] = i;
+    } 
+    for(int i = 0; i < N; i++){
+        for(int j = i; j < N; j++){
+            if(strcmp(t[ind[j]].nome, t[ind[i]].nome) < 0){
+                swap(ind + i, ind + j);
+            }
+        }
+        ind[ind[i]] = i;
+    }
+}
 
 
 

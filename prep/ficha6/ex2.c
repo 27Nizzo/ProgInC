@@ -20,7 +20,7 @@ void SinitQueue(SQueue q){
 }
 
 
-//b)  Função que testa se uma queue está vazia
+//b) Função que testa se uma queue está vazia
 
 typedef struct staticQueue* SQueue;
 
@@ -35,7 +35,7 @@ int SisEmptyQ(SQueue q){
 
 //c) Função que acrescenta x ao fim de q, a função deve retornar 0 se for a operação for feita, caso contrário retorna 1
 
-int Senqueue(SQueue q, int *x){
+int Senqueue(SQueue q, int x){
     int r = 0;
     if(q->length == MAX){
         r = 1;

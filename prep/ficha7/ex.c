@@ -68,7 +68,7 @@ Palavras acrescentaInicio(Palavras l, char *p){
 //Ex6: Função que acrescenta uma palavra no final da lista (com 1 como número de ocorrencias)
 
 Palavras acrescentaFim(Palavras l, char *p) {
-    Palavras tmp = mallocI(sizeof(struct celula));
+    Palavras tmp = malloc(sizeof(struct celula));
     tmp->palavra = p;
     tmp->ocorr = 1;
     tmp->prox = NULL;
